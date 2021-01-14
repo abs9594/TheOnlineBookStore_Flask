@@ -7,9 +7,9 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import wordnet
 from nltk import download,pos_tag,word_tokenize
 
-download('wordnet')
-download('punkt')
-download('averaged_perceptron_tagger')
+# download('wordnet')
+# download('punkt')
+# download('averaged_perceptron_tagger')
 
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.preprocessing import StandardScaler
