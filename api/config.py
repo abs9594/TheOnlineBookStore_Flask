@@ -8,7 +8,7 @@ class Config:
 
 class ProductionConfig(Config):
 	DEBUG = False
-	SERVER_PORT = os.environ.get('PORT', 443)
+	SERVER_PORT = os.environ.get('PORT', 5000)
 
 class DevelopmentConfig(Config):
 	DEVELOPMENT = True
