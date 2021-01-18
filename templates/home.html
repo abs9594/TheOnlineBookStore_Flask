@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Prediction Apps Home
+{% endblock %}
+
+{% block body %}
+
+<h2 style="text-align:center"> You can use any prediction app from link given below or from the navigation bar on top </h2>
+<div class="container">
+  <div class="row justify-content-center">
+	<div class="list-group col-md-6 offset-md-4 text-center" >
+	  <a href="{{ url_for('prediction_app.predict') }}" class="list-group-item align-middle">Food Review Sentiment Predictor</a>
+	  <a href="#" class="list-group-item align-middle">Question Pair similarity Predictor(Coming Soon)</a>
+	  <a href="#" class="list-group-item align-middle">Stackoverflow tag Predictor(Coming Soon)</a>
+	</div> 
+  </div>
+ </div>
+
+
+{% endblock %}

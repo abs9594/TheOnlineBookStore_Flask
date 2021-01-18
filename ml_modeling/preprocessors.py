@@ -29,7 +29,7 @@ class CreatePolarityFeature(BaseEstimator, TransformerMixin):
         X = X.copy()
         X = X[X['Score']!=3]
         X['Score'] = X['Score'].apply(lambda x: 1 if x>3 else 0) 
-        print("CreatePolarityFeature called")
+        #print("CreatePolarityFeature called")
         return X
 
 
@@ -45,7 +45,7 @@ class DropMissingValues(BaseEstimator,TransformerMixin):
     def transform(self,X):
         X = X.copy()
         X = X.dropna()
-        print("DropMissingValues called")
+        #print("DropMissingValues called")
         return X
 
 
@@ -67,7 +67,7 @@ class DropDuplicateValues(BaseEstimator,TransformerMixin):
         X = X.copy()
 
         X.drop_duplicates(subset={"Summary","Text"},keep='first',inplace=True)
-        print("DropDuplicateValues called")
+        #print("DropDuplicateValues called")
         return X
 
 # Class to clean text
@@ -145,7 +145,7 @@ class TextCleaner(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature] = X[feature].apply(self.text_preprocessing)
-        print("TextCleaner called")
+        #print("TextCleaner called")
         return X
 
 
@@ -196,7 +196,7 @@ class TextLematizer(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature] = X[feature].apply(self.lemmatize_sentence)
-        print("TextLematizer called")
+        #print("TextLematizer called")
         return X
 
 
@@ -219,7 +219,7 @@ class IncreaseSummaryWeightage(BaseEstimator, TransformerMixin):
         X = X.copy()
         
         X["Summary"] = X["Summary"].apply(self.adding_summary_weight)
-        print("IncreaseSummaryWeightage called")
+        #print("IncreaseSummaryWeightage called")
         return X
 
 
@@ -241,7 +241,7 @@ class CreateLengthFeature(BaseEstimator, TransformerMixin):
         X = X.copy()
         for feature in self.variables:
             X[feature+"Length"] = X[feature].apply(len)
-        print("CreateLengthFeature called")
+        #print("CreateLengthFeature called")
         return X
 
 class StandardScalarNumeric(BaseEstimator, TransformerMixin):
@@ -263,7 +263,7 @@ class StandardScalarNumeric(BaseEstimator, TransformerMixin):
         X = X.copy()
         X[self.variables] = self.numerical_scalar.transform(X[self.variables])
         df = pd.DataFrame(X[self.variables],columns=self.variables)
-        print("StandardScalerNumeric called")
+        #print("StandardScalerNumeric called")
         return df
 
 class TfidfConverterText(BaseEstimator,TransformerMixin):
@@ -282,7 +282,7 @@ class TfidfConverterText(BaseEstimator,TransformerMixin):
         X = X.copy()
         feature_names = ['Text_'+feature for feature in self.vectorizer_tfidf.get_feature_names()]
         df =  pd.DataFrame.sparse.from_spmatrix(self.vectorizer_tfidf.transform(X['Text'].values), columns=feature_names)
-        print("TfidfConverterText called")
+        #print("TfidfConverterText called")
 
         return df
 
@@ -302,7 +302,7 @@ class TfidfConverterSummary(BaseEstimator,TransformerMixin):
         X = X.copy()
         feature_names = ['Summary_'+feature for feature in self.vectorizer_tfidf.get_feature_names()]
         df =  pd.DataFrame.sparse.from_spmatrix(self.vectorizer_tfidf.transform(X['Summary'].values), columns=feature_names)
-        print("TfidfConverterSummary called")
+        #print("TfidfConverterSummary called")
         
         return df
 
