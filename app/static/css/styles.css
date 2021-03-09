@@ -1,0 +1,50 @@
+body{
+    background : white url('../image/bgimage.jpg');
+}
+
+ul { position: relative; top: 15px; }
+
+h1, h2, h3, h4 { font-family: Sansita, serif ;
+display: inline;}
+
+
+.bg-4 {
+    position : fixed;
+    left : 0;
+    bottom :0;
+    width:100%;
+    background-color: #2f2f2f;
+    color: #ffffff;
+}
+
+.list-group{
+      display:inline-block;
+ }
+
+.myForm {
+  /*min-width: 200px;*/
+  position: relative;
+  /*text-align: center;*/
+  top: 15%;
+  left: 10%;
+  right : 0%;
+  /*transform: translate(-50%, -50%);*/
+  /*font-size: 2.5rem*/
+}
+
+.title { color: floralwhite;
+  position: relative; 
+  top: 15px;
+  left:30px;}
+
+.navbar {
+  position: relative; 
+  right: 0px;
+  left: 0px;
+}
+
+
+.books {padding: 25px; position: relative; left: 5%; width: 80%}
+.publisher {padding: 25px; position: relative; left: 40px }
+
+

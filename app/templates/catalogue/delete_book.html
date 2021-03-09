@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Delete Book
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h4 style="margin-left: 45px"> Delete the book ? </h4>
+        <hr>
+        <img src="{{ url_for('static', filename='img/'+book.image) }}"
+        alt="book-img" height="200" width="180" class="img-rounded" style="margin-left: 45px"><br>
+            <p style="margin-left: 45px">
+                Book Id: {{ book.id }}<br>
+                Title: {{ book.title }}<br>
+                Author: {{ book.author }}
+            </p>
+        <br>
+        <form action="{{ url_for('catalogue.delete_book', book_id=book.id) }}" method="POST" style="margin-left: 45px">
+            <button type="submit" class="btn btn-sm btn-primary"> Delete </button>
+        </form>
+    </div>
+
+{% endblock %}

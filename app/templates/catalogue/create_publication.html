@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Publisher Details
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h4 style="margin-left: 45px"> create a new publication </h4>
+        <hr>
+          <form class="myForm" action = "/create/publication" method = "POST">
+            {{ form.hidden_tag() }}
+             <fieldset class="form-group">
+
+                <div class="form-group row">
+                  {{ form.name.label(class="form-control-label") }}
+                  <br>
+                  {% if form.name.errors %}
+                      {{ form.name(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.name.errors %}
+                              {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.name }}
+                  {% endif %}
+                </div>
+                
+             </fieldset>
+
+            <div class="form-group row">
+                
+                {{ form.submit(class='btn btn-primary') }}
+                
+            </div>
+       </form>
+    </div>
+
+{% endblock %}

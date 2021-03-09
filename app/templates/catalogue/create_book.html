@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Publisher Details
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h4 style="margin-left: 45px"> create a new book </h4>
+        <hr>
+          <form class="myForm" action = "/create/book" method = "POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+             <fieldset class="form-group">
+
+                <div class="form-group row">
+                  {{ form.title.label(class="form-control-label") }}
+                  <br>
+                  {% if form.title.errors %}
+                      {{ form.title(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.title.errors %}
+                              {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                              {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.title }}
+                  {% endif %}
+                </div>
+
+                
+                <div class="form-group row">
+                  {{ form.author.label(class="form-control-label") }}
+                  <br>
+                  {% if form.author.errors %}
+                      {{ form.author(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.author.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.author }}
+                  {% endif %}
+                </div>
+
+                <div class="form-group row">
+                  {{ form.avg_rating.label(class="form-control-label") }}
+                  <br>
+                  {% if form.avg_rating.errors %}
+                      {{ form.avg_rating(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.avg_rating.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.avg_rating }}
+                  {% endif %}
+                </div>
+
+                <div class="form-group row">
+                  {{ form.format.label(class="form-control-label") }}
+                  <br>
+                  {% if form.format.errors %}
+                      {{ form.format(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.format.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.format }}
+                  {% endif %}
+                </div>
+
+                <div class="form-group row">
+                  {{ form.img_url.label(class="form-control-label") }}
+                  <br>
+                  {% if form.img_url.errors %}
+                      {{ form.img_url(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.img_url.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.img_url }}
+                  {% endif %}
+                </div>
+
+                <div class="form-group row">
+                  {{ form.num_pages.label(class="form-control-label") }}
+                  <br>
+                  {% if form.num_pages.errors %}
+                      {{ form.num_pages(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.num_pages.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.num_pages }}
+                  {% endif %}
+                </div>
+
+                <div class="form-group row">
+                  {{ form.pub_id.label(class="form-control-label") }}
+                  <br>
+                  {% if form.pub_id.errors %}
+                      {{ form.pub_id(class="is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.pub_id.errors %}
+                             {% if loop.index <= 1 %}
+                                <span class="error text-danger">{{ error }}</span>
+                             {% endif %}
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.pub_id }}
+                  {% endif %}
+                </div>
+                
+             </fieldset>
+
+            <div class="form-group row">
+                
+                {{ form.submit(class='btn btn-primary') }}
+                
+            </div>
+       </form>
+    </div>
+
+{% endblock %}
