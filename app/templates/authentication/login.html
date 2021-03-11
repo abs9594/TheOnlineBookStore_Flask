@@ -54,17 +54,25 @@ Login Page
    			
    			{{ form.submit(class='btn btn-primary') }}
    			
-          	<a href="{{ url_for('authentication.register_user') }}">
+          <!-- <a href="{{ url_for('authentication.register_user') }}">
 	           <button type="button" class="btn btn-primary x-btn" style="margin-left: 45px">
 	             Sign-Up
 	           </button>
-	        </a>
-          	
+	        </a> -->
+        <br><br><hr>
+        <h4>Don't have an account ?
+            <a href="{{ url_for('authentication.register_user') }}">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;Register
+            </a>
+            Or Login with
+            <a href="{{ url_for('authentication.do_the_google_login') }}">
+                <i class="fa fa-google-plus-square" aria-hidden="true"></i>&nbsp;Google
+            </a>
+        </h4>
    		</div>
    </form>
 
 
 	</div>
-
 
 {% endblock %}

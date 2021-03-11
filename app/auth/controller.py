@@ -53,3 +53,19 @@ def log_out_user():
 @authentication.app_errorhandler(404)
 def page_not_found(error):
 	return render_template('authentication/page_not_found.html'),404
+
+@authentication.route("/login/google",methods=["GET","POST"])
+def do_the_google_login():
+	if current_user.is_authenticated:
+		flash("You are already LoggedIn")
+		return redirect(url_for('catalogue.home'))
+
+	form = LoginForm()
+	flash("This Feature of Google Login is coming soon")
+	return render_template("authentication/login.html",form=form)
+
+def get_google_provider_cfg():
+    return requests.get(GOOGLE_DISCOVERY_URL).json()
+
+
+

@@ -40,3 +40,9 @@ class Book(db.Model):
 
     def __repr__(self):
         return '{} by {}'.format(self.title, self.author)
+
+class UserSubscription(db.Model):
+    __tablename__ = 'user_subscription'
+
+    id = db.Column(db.Integer,primary_key=True)
+    user_id = db.Column(db.Integer)

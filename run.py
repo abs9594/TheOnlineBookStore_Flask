@@ -14,6 +14,6 @@ with flask_app.app_context():
 	except exc.IntegrityError:
 		pass
 	
-	# flask_app.run()
+	
 # if __name__ == '__main__':
-	# application.run()
+# 	flask_app.run()

@@ -4,12 +4,17 @@ class Config:
 	TESTING = False
 	CSRF_ENABLED = True
 	SECRET_KEY = 'this-really-needs-to-be-changed'
+	GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
+	GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+	GOOGLE_DISCOVERY_URL = (
+	    "https://accounts.google.com/.well-known/openid-configuration"
+	)
 	
 
 class ProductionConfig(Config):
 	DEBUG = False
 	SERVER_PORT = os.environ.get('PORT')
-	SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+	SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',"")
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
