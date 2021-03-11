@@ -36,6 +36,9 @@ def do_the_login():
 		if not user:
 			flash("User doesn't exist")
 			return redirect(url_for('authentication.do_the_login'))
+		elif user.gmail_registered:
+			flash("User is registered with gmail,please try google login!")
+			return redirect(url_for('authentication.do_the_login'))
 		elif not user.check_password(form.password.data):
 			flash("Invalid password")
 			return redirect(url_for('authentication.do_the_login'))
@@ -54,18 +57,22 @@ def log_out_user():
 def page_not_found(error):
 	return render_template('authentication/page_not_found.html'),404
 
-@authentication.route("/login/google",methods=["GET","POST"])
+
+@authentication.route("/oauth2callback",methods=["GET"])
 def do_the_google_login():
 	if current_user.is_authenticated:
 		flash("You are already LoggedIn")
 		return redirect(url_for('catalogue.home'))
 
+	form = RegistrationForm()
+	flash("This Feature of Google Login is coming soon, please consider registering with us!")
+	return render_template("authentication/registration.html",
+							form=form)
+@authentication.route("/fogotpassword")
+def update_password():
 	form = LoginForm()
-	flash("This Feature of Google Login is coming soon")
+	flash("This Forgot Password feature is coming soon")
 	return render_template("authentication/login.html",form=form)
-
-def get_google_provider_cfg():
-    return requests.get(GOOGLE_DISCOVERY_URL).json()
 
 
 
