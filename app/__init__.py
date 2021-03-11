@@ -4,15 +4,11 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import os
 
-from oauthlib.oauth2 import WebApplicationClient
-import requests
-
 from app.config import DevelopmentConfig,ProductionConfig
 
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
-# client = WebApplicationClient(ProductionConfig.GOOGLE_CLIENT_ID)
 login_manager.login_view = 'authentication.do_the_login'
 login_manager.session_protection = 'strong'
 APP_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
