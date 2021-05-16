@@ -32,3 +32,9 @@ class User(UserMixin,db.Model):
 		db.session.commit()
 		return user
 
+	def update_password(self,new_password):
+    		
+			self.user_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+			db.session.commit()
+			return self
+

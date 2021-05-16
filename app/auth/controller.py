@@ -1,5 +1,5 @@
 from flask import Blueprint,request,jsonify,render_template,flash,redirect,url_for
-from app.auth.forms import RegistrationForm,LoginForm
+from app.auth.forms import RegistrationForm,LoginForm,UpdatePasswordForm
 from app.auth.models import User
 from flask_login import login_user,logout_user,login_required,current_user
 
@@ -14,16 +14,16 @@ def register_user():
 
 	if form.validate_on_submit():
 		User.create_user(
-		   user=form.username.data,
-		   email=form.email_id.data,
-		   password=form.password.data,
-			)
+		user=form.username.data,
+		email=form.email_id.data,
+		password=form.password.data,
+		)
 		flash("Registration Successfull")
 		return redirect(url_for("authentication.do_the_login"))
-	
+
 	return render_template("authentication/registration.html",
-							form=form)
-	
+	form=form)
+
 @authentication.route("/login",methods=["GET","POST"])
 def do_the_login():
 	if current_user.is_authenticated:
@@ -36,9 +36,7 @@ def do_the_login():
 		if not user:
 			flash("User doesn't exist")
 			return redirect(url_for('authentication.do_the_login'))
-		elif user.gmail_registered:
-			flash("User is registered with gmail,please try google login!")
-			return redirect(url_for('authentication.do_the_login'))
+		
 		elif not user.check_password(form.password.data):
 			flash("Invalid password")
 			return redirect(url_for('authentication.do_the_login'))
@@ -46,7 +44,7 @@ def do_the_login():
 		return redirect(url_for('catalogue.home'))
 
 	return render_template("authentication/login.html",form=form)
-	
+
 @authentication.route('/logout')
 @login_required
 def log_out_user():
@@ -67,12 +65,26 @@ def do_the_google_login():
 	form = RegistrationForm()
 	flash("This Feature of Google Login is coming soon, please consider registering with us!")
 	return render_template("authentication/registration.html",
-							form=form)
-@authentication.route("/fogotpassword")
+	form=form)
+
+@authentication.route("/updatepassword",methods=["GET","POST"])
 def update_password():
-	form = LoginForm()
-	flash("This Forgot Password feature is coming soon")
-	return render_template("authentication/login.html",form=form)
+	form = UpdatePasswordForm()
+	if form.validate_on_submit():
+		user = User.query.filter_by(user_email=form.email.data).first()
+		if not user:
+			flash("User does not exists")
+			return redirect(url_for("authenticatoion.update_password"))
+		
+		elif not user.check_password(form.current_password.data):
+			print(form.current_password.data)
+			flash("Invalid password")
+			return redirect(url_for('authentication.update_password'))
+	
+		flash("Password Updated Sucessfully")
+		return redirect(url_for('catalogue.home'))
+    			
+	return render_template("authentication/update_password.html",form=form)
 
 
 

@@ -68,13 +68,23 @@
                                 <a href="{{ url_for('catalogue.create_book') }}">
                                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>&nbsp;Add Book
                                 </a>
+                                
                             </li>
 
-                            <li class="">
-                                <a href="">
-                                    Hello <b style=" color: grey">{{ current_user.user_name.title() }}</b>
-                                </a>
-                            </li>
+                            <!-- <li class=""> -->
+                                <!-- <a href="">
+                                    Hello <b style=" color: rgb(70, 209, 219)">{{ current_user.user_name.title() }}</b>
+                                </a> -->
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Hello <b style=" color: rgb(191, 238, 241)">{{ current_user.user_name.title() }}</b></a>
+                                        
+                                    <ul class="dropdown-menu">
+                                      <li><a style="color:#062F4F" href="{{ url_for('authentication.update_password') }}">Update Password</a></li>
+            
+                                    </ul>
+                                  </li>
+                            <!-- </li> -->
 
                             <li class="">
                                 <a href="{{ url_for('authentication.log_out_user') }}">

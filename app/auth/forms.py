@@ -32,6 +32,26 @@ class RegistrationForm(FlaskForm):
 class LoginForm(FlaskForm):
 
 	email = StringField('Email',validators=[DataRequired(),Email()])
+	
 	password = PasswordField('Password',validators=[DataRequired()])
+	
 	stay_loggedin = BooleanField('stay logged-in')
+	
 	submit = SubmitField('LogIn')
+
+
+class UpdatePasswordForm(FlaskForm):
+
+	email = StringField('Email',validators=[DataRequired(),Email()])
+
+	current_password = PasswordField('Current Password',validators=[DataRequired()])
+
+	new_password = PasswordField('New Password',validators=[DataRequired(),
+		Length(min=4, max=20,message="Password should be minimum 8 and maximum 20 characters Long"),
+		EqualTo('new_password_confirm',message="Your password and confirmation password do not match")])
+
+	new_password_confirm = PasswordField('Confirm New Password',validators=[DataRequired(),
+		Length(min=4, max=20,message="Password should be minimum 8 and maximum 20 characters Long"),
+		EqualTo('new_password',message="Your password and confirmation password do not match")])
+
+	submit = SubmitField('Update')
