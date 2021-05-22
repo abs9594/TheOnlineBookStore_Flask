@@ -18,7 +18,7 @@ def register_user():
 		email=form.email_id.data,
 		password=form.password.data,
 		)
-		flash("Registration Successfull")
+		flash("Registration Successfull","sucess")
 		return redirect(url_for("authentication.do_the_login"))
 
 	return render_template("authentication/registration.html",
@@ -34,11 +34,11 @@ def do_the_login():
 	if form.validate_on_submit():
 		user = User.query.filter_by(user_email=form.email.data).first()
 		if not user:
-			flash("User doesn't exist")
+			flash("User doesn't exist","error")
 			return redirect(url_for('authentication.do_the_login'))
 		
 		elif not user.check_password(form.password.data):
-			flash("Invalid password")
+			flash("Invalid password","error")
 			return redirect(url_for('authentication.do_the_login'))
 		login_user(user,form.stay_loggedin.data)
 		return redirect(url_for('catalogue.home'))
@@ -68,23 +68,22 @@ def do_the_google_login():
 	form=form)
 
 @authentication.route("/updatepassword",methods=["GET","POST"])
+@login_required
 def update_password():
 	form = UpdatePasswordForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(user_email=form.email.data).first()
 		if not user:
-			flash("User does not exists")
+			flash("User does not exists","error")
 			return redirect(url_for("authenticatoion.update_password"))
 		
 		elif not user.check_password(form.current_password.data):
 			print(form.current_password.data)
-			flash("Invalid password")
+			flash("Invalid password","error")
 			return redirect(url_for('authentication.update_password'))
 	
-		flash("Password Updated Sucessfully")
+		flash("Password Updated Sucessfully","green")
 		return redirect(url_for('catalogue.home'))
-    			
+		
+	form.email.data = current_user.user_email	
 	return render_template("authentication/update_password.html",form=form)
-
-
-
