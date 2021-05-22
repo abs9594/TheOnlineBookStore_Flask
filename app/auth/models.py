@@ -1,13 +1,14 @@
 from datetime import datetime
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from app import db,bcrypt,login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
-    try:
-        return User.query.get(user_id)
-    except:
-        return None
+	try:
+		return User.query.get(user_id)
+	except:
+		return None
 
 class User(UserMixin,db.Model):
 	__tablename__ = "users"
@@ -33,8 +34,22 @@ class User(UserMixin,db.Model):
 		return user
 
 	def update_password(self,new_password):
-    		
+			
 		self.user_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
 		db.session.commit()
 		return self
 
+	def get_reset_token(self,expire_sec=1800):
+		token_serilazer = Serializer("secret",expire_sec)
+		return token_serilazer.dumps({'user_id':self.id}).decode('utf-8')
+	
+	@staticmethod
+	def verify_reset_token(token):
+		try:
+			token_serilazer = Serializer("secret")
+			user_id = token_serilazer.loads(token)['user_id']
+		except Exception as err:
+			return None
+
+		return User.query.get(user_id)
+		

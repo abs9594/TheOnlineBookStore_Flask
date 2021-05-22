@@ -2,6 +2,7 @@ from flask import Flask,render_template
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_mail import Mail
 import os
 
 from app.config import DevelopmentConfig,ProductionConfig
@@ -9,6 +10,7 @@ from app.config import DevelopmentConfig,ProductionConfig
 db = SQLAlchemy()
 login_manager = LoginManager()
 bcrypt = Bcrypt()
+mail = Mail()
 login_manager.login_view = 'authentication.do_the_login'
 login_manager.session_protection = 'strong'
 APP_ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -21,7 +23,7 @@ def create_app(*,config_object):
 	db.init_app(flask_app)
 	bcrypt.init_app(flask_app)
 	login_manager.init_app(flask_app)
-	
+	mail.init_app(flask_app)
 	from app.catalogue.controller import catalogue
 	from app.auth.controller import authentication
 

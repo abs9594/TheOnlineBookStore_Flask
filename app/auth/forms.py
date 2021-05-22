@@ -4,6 +4,11 @@ from wtforms.validators import DataRequired,Length,EqualTo,Email,ValidationError
 from wtforms.fields.html5 import EmailField
 from app.auth.models import User
 
+def email_does_not_exist(form,feild):
+	email = User.query.filter_by(user_email=form.email.data).first()
+	if not(email):
+		raise ValidationError("Email Does Not Exists")
+
 
 def email_exists(form,field):
 	email = User.query.filter_by(user_email=field.data).first()
@@ -45,6 +50,27 @@ class UpdatePasswordForm(FlaskForm):
 	email = StringField('Email',validators=[DataRequired(),Email()])
 
 	current_password = PasswordField('Current Password',validators=[DataRequired()])
+
+	new_password = PasswordField('New Password',validators=[DataRequired(),
+		Length(min=4, max=20,message="Password should be minimum 8 and maximum 20 characters Long"),
+		EqualTo('new_password_confirm',message="Your password and confirmation password do not match")])
+
+	new_password_confirm = PasswordField('Confirm New Password',validators=[DataRequired(),
+		Length(min=4, max=20,message="Password should be minimum 8 and maximum 20 characters Long"),
+		EqualTo('new_password',message="Your password and confirmation password do not match")])
+
+	submit = SubmitField('Update')
+
+class RequestResetForm(FlaskForm):
+
+
+	email = StringField('Email',validators=[DataRequired(),Email(),email_does_not_exist])
+	
+	submit = SubmitField('Submit')
+
+class ResetPasswordForm(FlaskForm):
+
+	email = EmailField('Email',validators=[DataRequired(),Email()])
 
 	new_password = PasswordField('New Password',validators=[DataRequired(),
 		Length(min=4, max=20,message="Password should be minimum 8 and maximum 20 characters Long"),

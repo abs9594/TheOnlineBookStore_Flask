@@ -4,7 +4,7 @@ from app.catalogue.models import Book,Publication
 from app.config import DevelopmentConfig,ProductionConfig
 from sqlalchemy import exc
 
-flask_app = create_app(config_object=DevelopmentConfig)
+flask_app = create_app(config_object=ProductionConfig)
 
 with flask_app.app_context():
 	try:
@@ -15,5 +15,5 @@ with flask_app.app_context():
 		pass
 	
 	
-if __name__ == '__main__':
-	flask_app.run()
+# if __name__ == '__main__':
+# 	flask_app.run()

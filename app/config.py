@@ -9,6 +9,11 @@ class Config:
 	GOOGLE_DISCOVERY_URL = (
 	    "https://accounts.google.com/.well-known/openid-configuration"
 	)
+	MAIL_SERVER = 'smtp.googlemail.com'
+	MAIL_PORT = 587
+	MAIL_USE_TLS = True
+	MAIL_USERNAME = 'thenewonlinebookstore@gmail.com'
+	MAIL_PASSWORD = 'AbhishekUser007$'
 	
 
 class ProductionConfig(Config):
